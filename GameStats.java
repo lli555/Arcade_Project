@@ -1,5 +1,7 @@
 // Represents current Game Stats
 
+import java.util.ArrayList;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -45,15 +47,14 @@ public class GameStats extends JPanel
 
   }
 
-  public void gameOver(int points)
+  public void gameOver(ArrayList<Integer> points)
   {
-
-  	if(points > Integer.parseInt(game.getHighScore())){
-  		yourScoreText.setForeground(Color.BLUE);
-  		String s = (String)JOptionPane.showInputDialog(this, "You are the new high scorer. Congratulations!\n Enter your name: ", "High Score", JOptionPane.PLAIN_MESSAGE, null, null,"name");
-      hScore.setText(" Current High Score:   " + points);
-
-  	}
-
+    for(int i = 0; i< points.size(); i++){
+        if(points.get(i).intValue() > Integer.parseInt(game.getHighScore())){
+        yourScoreText.setForeground(Color.BLUE);
+        String s = (String)JOptionPane.showInputDialog(this, "You are the new high scorer. Congratulations!\n Enter your name: ", "High Score", JOptionPane.PLAIN_MESSAGE, null, null,"name");
+        hScore.setText(" Current High Score:   " + points);
+  	  }
+    }
   }
 }
