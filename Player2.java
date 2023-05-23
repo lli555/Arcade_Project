@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Player2 extends Players {
+public class Player2 extends Board implements Players {
     private int num;
     private int score;
 
@@ -24,6 +24,7 @@ public class Player2 extends Players {
 
         return col--;
     }
+    
 
     public void setScore(int s) {
         score += s;

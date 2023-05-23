@@ -42,7 +42,7 @@ public class GameStats extends JPanel
   public void update(int points)
   {
 
-  	yourScoreText.setText(" Your Score: " + points);
+  	yourScoreText.setText(" Your Scores: " + points);
 
 
   }

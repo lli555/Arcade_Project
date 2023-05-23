@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.ArrayList;
 
 public class Board {
@@ -111,4 +112,18 @@ public class Board {
         return "Tie";
     }
 
+    public void draw(Graphics g){
+      
+        g.setColor(Color.blue);
+        for(int y = 0; y < 105; y += 15){
+            for(int x = 0; x < 105; x += 15)
+                g.fillOval(x, y, 10, 10);
+        }
+
+        g.setColor(Color.darkGray);
+        for(int y = 2; y < 107; y += 15){
+            for(int x = 2; x < 107; x += 15)
+                g.drawOval(x, y, 6, 6);
+        }
+     }
 }

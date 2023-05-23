@@ -7,8 +7,11 @@ public class UserPanel extends JPanel implements JavaArcade {
     private Board board;
     private Player1 playerOne;
     private Player2 playerTwo;
+    private ImagePlayer1 img1;
+    private ImagePlayer2 img2;
     private int width;
     private int height;
+    private GameStats gameStats;
 
     public UserPanel(int width, int height){
         board = new Board();
@@ -16,7 +19,8 @@ public class UserPanel extends JPanel implements JavaArcade {
         playerTwo = new Player2();
         this.width = width;
         this.height = height;
-        run =false;
+        run = false;
+        gameStats = new GameStats(this);
     }
 
     public boolean running() {
@@ -77,6 +81,20 @@ public class UserPanel extends JPanel implements JavaArcade {
     /* This method provides access to GameStats display for UserPanel to pass information to update score
     GameStats is created in Arcade, a reference should be passed to UserPanel (main panel) to update poionts */
     public void setDisplay(GameStats d) {
+        gameStats = d;
 
+    }
+
+    public void paintComponent(Graphics g){
+  
+        super.paintComponent(g); //a call to JPanel's paintComponent	  		   
+              
+            //Draw board
+          board.draw(g);
+       
+  
+            //Draw cakes
+         img1.draw(g);
+         img1.draw(g);
     }
 }
