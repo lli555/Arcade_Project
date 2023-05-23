@@ -1,24 +1,25 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class ActualGameMain {
+public class ActualGameMain extends JFrame{
 
-    public static void main(String[] args){
-        
-        System.out.print("Hello World! before frame");
-        JFrame arcade = new JFrame("Dessert Detion");
-        arcade.setTitle("Dessert Desperation");
-        arcade.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        System.out.print("before panel!");
+    public ActualGameMain(){
 
-        JPanel panel = new UserPanel(600, 450);
-        
-        Container pane = arcade.getContentPane();
-        pane.setLayout(new GridLayout(1, 1));
-        pane.add(panel);
+        super("Dessert Desperation");
 
-        arcade.pack();
-        arcade.setVisible(true);
-        panel.requestFocus();
+        UserPanel canvas = new UserPanel(600, 400);
+        GameStats gs = new GameStats(canvas);
+        ControlPanel controls = new ControlPanel(canvas, gs);
+        Container c = getContentPane();
+        c.add(canvas, BorderLayout.CENTER);
+        c.add(controls, BorderLayout.SOUTH);
+    }
+
+    public static void main(String[] args)
+    {
+        ActualGameMain window = new ActualGameMain();
+        window.setBounds(100, 100, 400, 400);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setVisible(true);
     }
 }
