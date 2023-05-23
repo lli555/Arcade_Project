@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import java.awt.Graphics;
 
 public class UserPanel extends JPanel implements JavaArcade {
     private boolean run;
@@ -7,8 +8,6 @@ public class UserPanel extends JPanel implements JavaArcade {
     private Board board;
     private Player1 playerOne;
     private Player2 playerTwo;
-    private ImagePlayer1 img1;
-    private ImagePlayer2 img2;
     private int width;
     private int height;
     private GameStats gameStats;
@@ -57,7 +56,7 @@ public class UserPanel extends JPanel implements JavaArcade {
     }
 
     /* This method should return the highest score played for this game */
-    public static String getHighScore() {
+    public String getHighScore() {
         return "The highest score achieved is " + highestScore + "points!" +
                     "\nCan you beat it? Play to find out!";
     }
@@ -91,10 +90,5 @@ public class UserPanel extends JPanel implements JavaArcade {
               
             //Draw board
           board.draw(g);
-       
-  
-            //Draw cakes
-         img1.draw(g);
-         img1.draw(g);
     }
 }

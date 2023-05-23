@@ -36,7 +36,7 @@ public interface JavaArcade {
   public String getCredits();
 
   /* This method should return the highest score played for this game */
-  public static String getHighScore();
+  public String getHighScore();
 
   /* This method should stop the timers, reset the score, and set a running boolean value to false */
   public void stopGame();
