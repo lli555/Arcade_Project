@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.util.ArrayList;
+import java.awt.*;
 
 public class Board {
     private int[][] board;
@@ -10,17 +11,31 @@ public class Board {
     }
 
     // make a move based on a given column and player; returns if successful or not
-    public boolean makeMove(int col, int player) {
+    // public boolean makeMove(int col, int player) {
+    //     if (board[0][col] != 0) {
+    //         return false;
+    //     }
+    //     for (int i = 5; i >= 0; i--) {
+    //         if (board[i][col] == 0) {
+    //             board[i][col] = player;
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
+
+    // make a move based on a given column and player; returns the row
+    public int makeMove(int col, int player) {
         if (board[0][col] != 0) {
-            return false;
+            return -1;
         }
         for (int i = 5; i >= 0; i--) {
             if (board[i][col] == 0) {
                 board[i][col] = player;
-                return true;
+                return i;
             }
         }
-        return false;
+        return -1;
     }
 
     // check if there is a winner
@@ -113,7 +128,7 @@ public class Board {
     }
 
     public void draw(Graphics g){
-      
+
         g.setColor(Color.blue);
         for(int y = 0; y < 105; y += 15){
             for(int x = 0; x < 105; x += 15)
