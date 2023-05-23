@@ -130,15 +130,15 @@ public class Board {
     public void draw(Graphics g){
 
         g.setColor(Color.LIGHT_GRAY);
-        for(int y = 50; y < 400; y += 55){
+        for(int y = 50; y < 380; y += 55){
             for(int x = 50; x < 400; x += 55)
-                g.fillOval(x, y, 50, 50);
+                g.fillRoundRect(x, y, 50, 50, 20, 20);
         }
 
         g.setColor(Color.darkGray);
-        for(int y = 56; y < 420; y += 55){
+        for(int y = 56; y < 380; y += 55){
             for(int x = 56; x < 420; x += 55)
-                g.drawOval(x, y, 38, 38);
+                g.drawRoundRect(x, y, 38, 38, 20, 20);
         }
     }
 }
