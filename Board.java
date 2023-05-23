@@ -129,16 +129,16 @@ public class Board {
 
     public void draw(Graphics g){
 
-        g.setColor(Color.blue);
-        for(int y = 0; y < 105; y += 15){
-            for(int x = 0; x < 105; x += 15)
-                g.fillOval(x, y, 10, 10);
+        g.setColor(Color.LIGHT_GRAY);
+        for(int y = 50; y < 400; y += 55){
+            for(int x = 50; x < 400; x += 55)
+                g.fillOval(x, y, 50, 50);
         }
 
         g.setColor(Color.darkGray);
-        for(int y = 2; y < 107; y += 15){
-            for(int x = 2; x < 107; x += 15)
-                g.drawOval(x, y, 6, 6);
+        for(int y = 56; y < 420; y += 55){
+            for(int x = 56; x < 420; x += 55)
+                g.drawOval(x, y, 38, 38);
         }
-     }
+    }
 }
