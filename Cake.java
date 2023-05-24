@@ -33,8 +33,8 @@ public class Cake {
     public Cake(int player, int row, int col) {
         img = null;
         this.player = player;
-        x = col * 50 + col*6;
-        y = 50 + row * 50 + row*6;
+        x = 395 + col * 50 + col*6;
+        y = 45 + row * 50 + row*6;
 
         // store img path
         if (player == 1) {

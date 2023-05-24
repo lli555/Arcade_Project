@@ -26,12 +26,12 @@ public class Board {
 
     // make a move based on a given column and player; returns the row
     public int makeMove(int col, int player) {
-        if (board[0][col] != 0) {
+        if (board[0][col-1] != 0) {
             return -1;
         }
         for (int i = 5; i >= 0; i--) {
-            if (board[i][col] == 0) {
-                board[i][col] = player;
+            if (board[i][col-1] == 0) {
+                board[i][col-1] = player;
                 return i;
             }
         }
@@ -131,13 +131,13 @@ public class Board {
 
         g.setColor(Color.LIGHT_GRAY);
         for(int y = 50; y < 380; y += 55){
-            for(int x = 50; x < 400; x += 55)
+            for(int x = 450; x < 800; x += 55)
                 g.fillRoundRect(x, y, 50, 50, 20, 20);
         }
 
         g.setColor(Color.darkGray);
         for(int y = 56; y < 380; y += 55){
-            for(int x = 56; x < 420; x += 55)
+            for(int x = 456; x < 825; x += 55)
                 g.drawRoundRect(x, y, 38, 38, 20, 20);
         }
     }
