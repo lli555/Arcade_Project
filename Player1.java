@@ -29,8 +29,4 @@ public class Player1 extends Board implements Players{
     public void setScore(int s) {
         score += s;
     }
-
-    public void draw(Graphics g){
-        
-    }
 }

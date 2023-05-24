@@ -11,7 +11,7 @@ public class UserPanel extends JPanel implements JavaArcade {
     private int width;
     private int height;
     private GameStats gameStats;
-    private Cake c;
+    private ArrayList<Cake> c;
 
     public UserPanel(int width, int height){
         board = new Board();
@@ -21,6 +21,7 @@ public class UserPanel extends JPanel implements JavaArcade {
         this.height = height;
         run = false;
         gameStats = new GameStats(this);
+        c = new ArrayList<Cake>();
 
         run = true;
         int turn = 1;
@@ -38,7 +39,8 @@ public class UserPanel extends JPanel implements JavaArcade {
             row = board.makeMove(col, turn);
 
             // Create a cake object
-            c = new Cake(turn, row, col);
+            Cake temp = new Cake(turn, row, col);
+            c.add(temp);
 
             // Draw cake
             //c.draw(getGraphics());
@@ -136,6 +138,10 @@ public class UserPanel extends JPanel implements JavaArcade {
             //Draw board
           board.draw(g);
 
-          c.draw(g);
+
+          for(Cake k:c){
+            g.drawImage(k.getImage(), k.getX(), k.getY(), null);
+          }
+          //c.draw(g);
     }
 }

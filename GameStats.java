@@ -41,15 +41,11 @@ public class GameStats extends JPanel
 
   public void update(int points)
   {
-
   	yourScoreText.setText(" Your Scores: " + points);
-
-
   }
 
-  public void gameOver(ArrayList<Integer> points)
-  {
-    for(int i = 0; i< points.size(); i++){
+  public void gameOver(ArrayList<Integer> points) {
+    for(int i = 0; i< points.size(); i++) {
         if(points.get(i).intValue() > Integer.parseInt(game.getHighScore())){
         yourScoreText.setForeground(Color.BLUE);
         String s = (String)JOptionPane.showInputDialog(this, "You are the new high scorer. Congratulations!\n Enter your name: ", "High Score", JOptionPane.PLAIN_MESSAGE, null, null,"name");

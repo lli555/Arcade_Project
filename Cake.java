@@ -6,6 +6,8 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
+import javax.security.auth.x500.X500PrivateCredential;
+
 import java.io.IOException;
 
 
@@ -13,9 +15,27 @@ public class Cake {
     private Image img;
     private int x;
     private int y;
+    private int player;
+
+    public int getPlayer(){
+        return player;
+    }
+    public int getX(){
+        return x;
+    }
+    public int getY(){
+        return y;
+    }
+    public Image getImage(){
+        return img;
+    }
 
     public Cake(int player, int row, int col) {
         img = null;
+        this.player = player;
+        x = col * 50 + col*6;
+        y = 50 + row * 50 + row*6;
+
         // store img path
         if (player == 1) {
             try
@@ -45,12 +65,6 @@ public class Cake {
 
 
         // store starting x and y coordinates
-        x = col * 50 + col*6;
-        y = 50 + row * 50 + row*6;
-    }
-
-    public void draw(Graphics g){
-        System.out.print(g);
-        g.drawImage(img, x, y, null);
+        
     }
 }
