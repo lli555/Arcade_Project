@@ -11,6 +11,7 @@ public class UserPanel extends JPanel implements JavaArcade {
     private int width;
     private int height;
     private GameStats gameStats;
+    private Cake c;
 
     public UserPanel(int width, int height){
         board = new Board();
@@ -20,6 +21,52 @@ public class UserPanel extends JPanel implements JavaArcade {
         this.height = height;
         run = false;
         gameStats = new GameStats(this);
+
+        run = true;
+        int turn = 1;
+        int col = 0;
+        int row = 0;
+
+        while(run) {
+            // Ask for user input
+            if (turn == 1)
+                col = playerOne.getMove();
+            else
+                col = playerTwo.getMove();
+
+            // Call board's makeMove
+            row = board.makeMove(col, turn);
+
+            // Create a cake object
+            c = new Cake(turn, row, col);
+
+            // Draw cake
+            // c.draw();
+
+            String winner = board.checkWinner();
+
+            // game ends
+            if (winner.equals("Player 1")) {
+                run = false;
+                playerOne.setScore(2);
+            }
+            else if (winner.equals("Player 2")) {
+                run = false;
+                playerTwo.setScore(2);
+            }
+            else if (winner.equals("Tie")) {
+                run = false;
+                playerOne.setScore(1);
+                playerTwo.setScore(1);
+            }
+
+            if (turn == 1){
+
+            }
+                
+            else
+                turn = 1;
+        }
     }
 
     public boolean running() {
@@ -85,10 +132,12 @@ public class UserPanel extends JPanel implements JavaArcade {
     }
 
     public void paintComponent(Graphics g){
-  
-        super.paintComponent(g); //a call to JPanel's paintComponent	  		   
-              
+
+        super.paintComponent(g); //a call to JPanel's paintComponent
+
             //Draw board
           board.draw(g);
+
+            c.draw(g);
     }
 }
