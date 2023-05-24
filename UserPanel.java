@@ -41,7 +41,7 @@ public class UserPanel extends JPanel implements JavaArcade {
             c = new Cake(turn, row, col);
 
             // Draw cake
-            // c.draw();
+            //c.draw(getGraphics());
 
             String winner = board.checkWinner();
 
@@ -60,10 +60,8 @@ public class UserPanel extends JPanel implements JavaArcade {
                 playerTwo.setScore(1);
             }
 
-            if (turn == 1){
-
-            }
-                
+            if (turn == 1)
+                turn = 2;
             else
                 turn = 1;
         }
@@ -138,6 +136,6 @@ public class UserPanel extends JPanel implements JavaArcade {
             //Draw board
           board.draw(g);
 
-            c.draw(g);
+          c.draw(g);
     }
 }

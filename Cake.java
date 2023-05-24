@@ -10,7 +10,7 @@ import java.io.IOException;
 
 
 public class Cake {
-    private BufferedImage img;
+    private Image img;
     private int x;
     private int y;
 
@@ -21,6 +21,10 @@ public class Cake {
             try
             {
                 img = ImageIO.read(new File("player1_img.png"));
+                img = img.getScaledInstance(45, 45,Image.SCALE_DEFAULT);
+                // img = ImageIO.read(new File("player1_img.png"));
+                // img = (BufferedImage) img.getScaledInstance(45, 45, Image.SCALE_DEFAULT);
+
             }
             catch (IOException e)
             {
@@ -31,6 +35,7 @@ public class Cake {
             try
             {
                 img = ImageIO.read(new File("player2_img.png"));
+                img = img.getScaledInstance(45, 45,Image.SCALE_DEFAULT);
             }
             catch (IOException e)
             {
@@ -40,11 +45,12 @@ public class Cake {
 
 
         // store starting x and y coordinates
-        x = col * 15 + 5;
-        y = row * 15 + 5;
+        x = col * 50 + col*6;
+        y = 50 + row * 50 + row*6;
     }
 
     public void draw(Graphics g){
+        System.out.print(g);
         g.drawImage(img, x, y, null);
     }
 }
