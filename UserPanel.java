@@ -1,8 +1,13 @@
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import java.awt.Graphics;
+import java.awt.event.MouseListener;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import javax.swing.*;
 
-public class UserPanel extends JPanel implements JavaArcade {
+public class UserPanel extends JPanel implements MouseListener, JavaArcade, ActionListener {
     private boolean run;
     private int highestScore;
     private Board board;
@@ -12,6 +17,9 @@ public class UserPanel extends JPanel implements JavaArcade {
     private int height;
     private GameStats gameStats;
     private ArrayList<Cake> c;
+    private int turn;
+    Timer t;
+    ActionListener action;
 
     public UserPanel(int width, int height){
         board = new Board();
@@ -21,52 +29,23 @@ public class UserPanel extends JPanel implements JavaArcade {
         this.height = height;
         run = false;
         gameStats = new GameStats(this);
+        addMouseListener(this);
+
+        game();
+    }
+
+    public void game(){
         c = new ArrayList<Cake>();
 
-        run = true;
-        int turn = 1;
+        turn = 1;
         int col = 0;
         int row = 0;
 
-        while(run) {
-            // Ask for user input
-            if (turn == 1)
-                col = playerOne.getMove();
-            else
-                col = playerTwo.getMove();
+        t = new Timer(100, action);  
+    }
 
-            // Call board's makeMove
-            row = board.makeMove(col, turn);
-
-            // Create a cake object
-            Cake temp = new Cake(turn, row, col);
-            c.add(temp);
-
-            // Draw cake
-            //c.draw(getGraphics());
-
-            String winner = board.checkWinner();
-
-            // game ends
-            if (winner.equals("Player 1")) {
-                run = false;
-                playerOne.setScore(2);
-            }
-            else if (winner.equals("Player 2")) {
-                run = false;
-                playerTwo.setScore(2);
-            }
-            else if (winner.equals("Tie")) {
-                run = false;
-                playerOne.setScore(1);
-                playerTwo.setScore(1);
-            }
-
-            if (turn == 1)
-                turn = 2;
-            else
-                turn = 1;
-        }
+    public void actionPerformed(ActionEvent e){
+        run = true;
     }
 
     public boolean running() {
@@ -82,7 +61,7 @@ public class UserPanel extends JPanel implements JavaArcade {
 
     /*This method should return the name of your game */
     public String getGameName() {
-        return "Four In A Row";
+        return "Desset Desperation";
     }
 
     /* This method should stop your timers but save your score, it should set a boolean value to indicate
@@ -93,7 +72,7 @@ public class UserPanel extends JPanel implements JavaArcade {
 
     /* This method should return your instructions */
     public String getInstructions() {
-        return "The first player to connect 4 pieces in a row wins. Ways include horizontal, vertical, and diagonal.";
+        return "The first player to connect 4 in a row wins. Ways include horizontal, vertical, and diagonal.";
     }
 
    /* This method should return the author(s) of the game */
@@ -104,8 +83,7 @@ public class UserPanel extends JPanel implements JavaArcade {
 
     /* This method should return the highest score played for this game */
     public String getHighScore() {
-        return "The highest score achieved is " + highestScore + "points!" +
-                    "\nCan you beat it? Play to find out!";
+        return "" + highestScore;
     }
 
     /* This method should stop the timers, reset the score, and set a running boolean value to false */
@@ -128,8 +106,77 @@ public class UserPanel extends JPanel implements JavaArcade {
     GameStats is created in Arcade, a reference should be passed to UserPanel (main panel) to update poionts */
     public void setDisplay(GameStats d) {
         gameStats = d;
-
+        d.update(getPoints());
     }
+
+    public void mouseClicked(MouseEvent e){
+        //System.out.println(true);
+        Cake k;
+        int col = 0;
+        
+        if(e.getX() >= 450 && e.getX() <= 500){
+            col = 1;
+        }
+        else if(e.getX() > 500 && e.getX() <= 555){
+            col = 2;
+        }
+        else if(e.getX() > 558 && e.getX() <= 610){
+            col = 3;
+        }
+        else if(e.getX() > 615 && e.getX() <= 670){
+            col = 4;
+        }
+        else if(e.getX() > 670 && e.getX() <= 720){
+            col = 5;
+        }
+        else if(e.getX() > 720 && e.getX() <= 778){
+            col = 6;
+        }
+        else if(e.getX() > 778 && e.getX() <= 850){
+            col = 7;
+        }
+
+        int row = board.makeMove(col, turn);
+
+        if(row != -1){
+            k = new Cake(turn, row, col);
+            c.add(k);
+
+            if (turn == 1)
+                turn = 2;
+            else
+                turn = 1;
+        }
+
+        repaint();
+
+        if(!checkWinner().equals("None")){
+            gameStats.gameOver(getPoints());
+        }
+    }
+
+    public String checkWinner(){
+        String winner = board.checkWinner();
+
+        // game ends
+        if (winner.equals("Player 1")) {
+            playerOne.setScore(2);
+        }
+        else if (winner.equals("Player 2")) {
+            playerTwo.setScore(2);
+        }
+        else if (winner.equals("Tie")) {
+            playerOne.setScore(1);
+            playerTwo.setScore(1);
+        }
+
+        return winner;
+    }
+
+    public void mouseEntered(MouseEvent e){}
+    public void mouseExited(MouseEvent e){}
+    public void mousePressed(MouseEvent e){}
+    public void mouseReleased(MouseEvent e){}
 
     public void paintComponent(Graphics g){
 
@@ -139,9 +186,9 @@ public class UserPanel extends JPanel implements JavaArcade {
           board.draw(g);
 
 
-          for(Cake k:c){
+        if(run)
+        for(Cake k: c)
             g.drawImage(k.getImage(), k.getX(), k.getY(), null);
-          }
-          //c.draw(g);
+        //   }
     }
 }

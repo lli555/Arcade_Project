@@ -8,6 +8,7 @@ import java.awt.Component;
 import java.awt.Container;
 import javax.swing.Box;
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class ControlPanel extends JPanel
     implements ActionListener
@@ -56,10 +57,11 @@ public class ControlPanel extends JPanel
 
     	if (!game.running()) 
       {
-       
+       ArrayList<Integer> n = new ArrayList<Integer>();
+       n.add(0);
        ((JPanel)(game)).requestFocus(); //need to provide the JPanel focus
        game.startGame();
-			 gStats.update(0);
+			 gStats.update(n);
     	 gStats.repaint();       
       }
     }

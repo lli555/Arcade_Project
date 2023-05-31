@@ -39,17 +39,17 @@ public class GameStats extends JPanel
      }
 
 
-  public void update(int points)
+  public void update(ArrayList<Integer> points)
   {
   	yourScoreText.setText(" Your Scores: " + points);
   }
 
   public void gameOver(ArrayList<Integer> points) {
-    for(int i = 0; i< points.size(); i++) {
-        if(points.get(i).intValue() > Integer.parseInt(game.getHighScore())){
-        yourScoreText.setForeground(Color.BLUE);
-        String s = (String)JOptionPane.showInputDialog(this, "You are the new high scorer. Congratulations!\n Enter your name: ", "High Score", JOptionPane.PLAIN_MESSAGE, null, null,"name");
-        hScore.setText(" Current High Score:   " + points);
+    for(Integer i : points) {
+        if(i.intValue() > Integer.parseInt(game.getHighScore())){
+          yourScoreText.setForeground(Color.BLUE);
+          String s = (String)JOptionPane.showInputDialog(this, "You are the new high scorer with " + i.intValue() + " points! Congratulations!\n Enter your name: ", "High Score", JOptionPane.PLAIN_MESSAGE, null, null,"name");
+          hScore.setText(" Current High Score:   " + i.intValue());
   	  }
     }
   }

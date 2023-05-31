@@ -1,8 +1,9 @@
 import java.awt.Color;
 import java.util.ArrayList;
 import java.awt.*;
+import javax.swing.*;
 
-public class Board {
+public class Board extends JPanel{
     private int[][] board;
 
     // create a new board to use for the game
@@ -32,6 +33,7 @@ public class Board {
         for (int i = 5; i >= 0; i--) {
             if (board[i][col-1] == 0) {
                 board[i][col-1] = player;
+                //System.out.println(i + " " + (col-1) + " " + player);
                 return i;
             }
         }
@@ -117,6 +119,7 @@ public class Board {
             else
                 return "Player 2";
         }
+
         // check if there is a tie by checking if top row is full
         for (int i = 0; i < 7; i++) {
             // if not full and no winner
@@ -130,13 +133,13 @@ public class Board {
     public void draw(Graphics g){
 
         g.setColor(Color.LIGHT_GRAY);
-        for(int y = 50; y < 380; y += 55){
+        for(int y = 150; y < 480; y += 55){
             for(int x = 450; x < 800; x += 55)
                 g.fillRoundRect(x, y, 50, 50, 20, 20);
         }
 
         g.setColor(Color.darkGray);
-        for(int y = 56; y < 380; y += 55){
+        for(int y = 156; y < 480; y += 55){
             for(int x = 456; x < 825; x += 55)
                 g.drawRoundRect(x, y, 38, 38, 20, 20);
         }
