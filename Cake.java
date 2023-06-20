@@ -17,6 +17,7 @@ public class Cake {
     private int y;
     private int player;
 
+    // GETTERS
     public int getPlayer(){
         return player;
     }
@@ -30,24 +31,29 @@ public class Cake {
         return img;
     }
 
+    // CONSTRUCTOR
     public Cake(int player, int row, int col) {
+        //initialize
         img = null;
         this.player = player;
-        x = 395 + col * 50 + col*6;
-        y = 145 + row * 50 + row*6;
+
+        // store starting x and y coordinates
+        x = 397 + col * 50 + col*6;
+        y = 140 + row * 50 + row*6;
 
         // store img path
         if (player == 1) {
             try
             {
                 img = ImageIO.read(new File("player1_img.png"));
-                img = img.getScaledInstance(45, 45,Image.SCALE_DEFAULT);
+                //img = img.getScaledInstance(45, 45,Image.SCALE_DEFAULT);
                 // img = ImageIO.read(new File("player1_img.png"));
                 // img = (BufferedImage) img.getScaledInstance(45, 45, Image.SCALE_DEFAULT);
 
             }
             catch (IOException e)
             {
+                e.printStackTrace();
                 System.out.println("Could not get picture");
             }
         }
@@ -55,16 +61,13 @@ public class Cake {
             try
             {
                 img = ImageIO.read(new File("player2_img.png"));
-                img = img.getScaledInstance(45, 45,Image.SCALE_DEFAULT);
+                //img = img.getScaledInstance(45, 45,Image.SCALE_DEFAULT);
             }
             catch (IOException e)
             {
+                e.printStackTrace();
                 System.out.println("Could not get picture");
             }
         }
-
-
-        // store starting x and y coordinates
-        
     }
 }

@@ -6,6 +6,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
+import java.io.IOException;
+import java.util.Scanner;
+import java.io.File;  // Import the File class
+import java.io.FileWriter;
 
 public class UserPanel extends JPanel implements MouseListener, JavaArcade, ActionListener {
     private boolean run;
@@ -20,7 +24,9 @@ public class UserPanel extends JPanel implements MouseListener, JavaArcade, Acti
     private int turn;
     Timer t;
     ActionListener action;
+    private boolean isFirstRun;
 
+    // constructor
     public UserPanel(int width, int height){
         board = new Board();
         playerOne = new Player1();
@@ -28,22 +34,34 @@ public class UserPanel extends JPanel implements MouseListener, JavaArcade, Acti
         this.width = width;
         this.height = height;
         run = false;
+        isFirstRun = true;
         gameStats = new GameStats(this);
         addMouseListener(this);
+
+        // Scanner reader;
+
+        // try {
+        //     reader = new Scanner(new File("HighScore.txt"));
+        //     highestScore = Integer.parseInt(reader.nextLine());
+        // }
+        // catch (IOException e) {
+        //     System.out.println("An error occurred.");
+        //     e.printStackTrace();
+        // }
 
         game();
     }
 
+    //starts timer
     public void game(){
         c = new ArrayList<Cake>();
 
         turn = 1;
-        int col = 0;
-        int row = 0;
 
         t = new Timer(100, action);  
     }
 
+    // when screen is clicked
     public void actionPerformed(ActionEvent e){
         run = true;
     }
@@ -57,6 +75,13 @@ public class UserPanel extends JPanel implements MouseListener, JavaArcade, Acti
 
     public void startGame() {
         run = true;
+        t.start();
+        if(!isFirstRun){
+            turn = 1;
+            board = new Board();
+            c = new ArrayList<Cake>();
+            repaint();
+        }
     }
 
     /*This method should return the name of your game */
@@ -76,23 +101,24 @@ public class UserPanel extends JPanel implements MouseListener, JavaArcade, Acti
     }
 
    /* This method should return the author(s) of the game */
-
     public String getCredits() {
         return "By Lina Li and Sharayu Josh";
     }
 
     /* This method should return the highest score played for this game */
-    public String getHighScore() {
-        return "" + highestScore;
+    public String getHighScore() throws IOException{
+        Scanner reader = new Scanner(new File("HighScore.txt"));
+        return "" + reader.nextInt();
     }
 
     /* This method should stop the timers, reset the score, and set a running boolean value to false */
     public void stopGame() {
         run = false;
+        isFirstRun = false;
+        t.stop();
     }
 
     /* This method shoud return the current players number of points */
-
     public ArrayList<Integer> getPoints() {
         int temp1 = playerOne.getScore();
         int temp2 = playerTwo.getScore();
@@ -100,7 +126,7 @@ public class UserPanel extends JPanel implements MouseListener, JavaArcade, Acti
         scores.add(temp1);
         scores.add(temp2);
         return scores;
-    } //add to spec
+    }
 
     /* This method provides access to GameStats display for UserPanel to pass information to update score
     GameStats is created in Arcade, a reference should be passed to UserPanel (main panel) to update poionts */
@@ -109,6 +135,7 @@ public class UserPanel extends JPanel implements MouseListener, JavaArcade, Acti
         d.update(getPoints());
     }
 
+    //when a column is clicked, determines which column and row, adds Cake object to the ArrayList, checks for a winner, calls repaint
     public void mouseClicked(MouseEvent e){
         //System.out.println(true);
         Cake k;
@@ -116,28 +143,21 @@ public class UserPanel extends JPanel implements MouseListener, JavaArcade, Acti
         
         if(e.getX() >= 450 && e.getX() <= 500){
             col = 1;
-        }
-        else if(e.getX() > 500 && e.getX() <= 555){
+        } else if(e.getX() > 500 && e.getX() <= 555){
             col = 2;
-        }
-        else if(e.getX() > 558 && e.getX() <= 610){
+        } else if(e.getX() > 558 && e.getX() <= 610){
             col = 3;
-        }
-        else if(e.getX() > 615 && e.getX() <= 670){
+        } else if(e.getX() > 615 && e.getX() <= 670){
             col = 4;
-        }
-        else if(e.getX() > 670 && e.getX() <= 720){
+        } else if(e.getX() > 670 && e.getX() <= 720){
             col = 5;
-        }
-        else if(e.getX() > 720 && e.getX() <= 778){
+        } else if(e.getX() > 720 && e.getX() <= 778){
             col = 6;
-        }
-        else if(e.getX() > 778 && e.getX() <= 850){
+        } else if(e.getX() > 778 && e.getX() <= 850){
             col = 7;
         }
 
         int row = board.makeMove(col, turn);
-
         if(row != -1){
             k = new Cake(turn, row, col);
             c.add(k);
@@ -151,10 +171,15 @@ public class UserPanel extends JPanel implements MouseListener, JavaArcade, Acti
         repaint();
 
         if(!checkWinner().equals("None")){
-            gameStats.gameOver(getPoints());
+            try {
+                isFirstRun = false;
+                gameStats.gameOver(getPoints());
+            } catch (IOException i) {
+            }
         }
     }
 
+    // checks for a winner
     public String checkWinner(){
         String winner = board.checkWinner();
 
@@ -178,17 +203,16 @@ public class UserPanel extends JPanel implements MouseListener, JavaArcade, Acti
     public void mousePressed(MouseEvent e){}
     public void mouseReleased(MouseEvent e){}
 
+    //paints graphics on the JPanel
     public void paintComponent(Graphics g){
 
         super.paintComponent(g); //a call to JPanel's paintComponent
 
             //Draw board
           board.draw(g);
-
-
+          
         if(run)
-        for(Cake k: c)
-            g.drawImage(k.getImage(), k.getX(), k.getY(), null);
-        //   }
+            for(Cake k: c)
+                g.drawImage(k.getImage(), k.getX(), k.getY(), null);
     }
 }

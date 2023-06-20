@@ -1,3 +1,10 @@
+/*
+ * Title: Dessert Desperation
+ *        Get 4 in a row to win
+ * Author: Sharayu Josh
+ * Date: 5/31/23
+ */
+
 import java.awt.*;
 import javax.swing.*;
 

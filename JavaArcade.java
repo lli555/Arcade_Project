@@ -7,6 +7,7 @@
  * @version 1.00 2016/2/15
  */
 import java.util.ArrayList;
+import java.io.IOException;
 
 public interface JavaArcade {
 
@@ -36,7 +37,7 @@ public interface JavaArcade {
   public String getCredits();
 
   /* This method should return the highest score played for this game */
-  public String getHighScore();
+  public String getHighScore() throws IOException;
 
   /* This method should stop the timers, reset the score, and set a running boolean value to false */
   public void stopGame();

@@ -9,6 +9,7 @@ import java.awt.Container;
 import javax.swing.Box;
 import javax.swing.*;
 import java.util.ArrayList;
+import java.io.IOException;
 
 public class ControlPanel extends JPanel
     implements ActionListener
@@ -41,9 +42,7 @@ public class ControlPanel extends JPanel
     add(Box.createHorizontalStrut(80)); 
     creditsButton = new JButton("Credits");
     creditsButton.addActionListener(this);
-    add(creditsButton);
-    
-  
+    add(creditsButton); 
   }
 
   // Called when the start button is clicked
@@ -58,6 +57,7 @@ public class ControlPanel extends JPanel
     	if (!game.running()) 
       {
        ArrayList<Integer> n = new ArrayList<Integer>();
+       n.add(0);
        n.add(0);
        ((JPanel)(game)).requestFocus(); //need to provide the JPanel focus
        game.startGame();
@@ -76,7 +76,10 @@ public class ControlPanel extends JPanel
     else if(button == stopButton)
     {
     	game.stopGame();
-    	gStats.gameOver(game.getPoints());
+      try {
+        gStats.gameOver(game.getPoints());
+      } catch (IOException i) {
+      }
     	gStats.repaint();
     	startButton.setEnabled(true);
     	startButton.setText("Restart");
@@ -96,6 +99,5 @@ public class ControlPanel extends JPanel
     }
     ((JPanel)(game)).requestFocus();      
   }
-    
-  }
+}
 

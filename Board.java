@@ -120,7 +120,7 @@ public class Board extends JPanel{
                 return "Player 2";
         }
 
-        // check if there is a tie by checking if top row is full
+        // checks if there is a tie by checking if the top row is full
         for (int i = 0; i < 7; i++) {
             // if not full and no winner
             if (board[0][i] == 0)
@@ -130,6 +130,7 @@ public class Board extends JPanel{
         return "Tie";
     }
 
+    //draws the board on the JPanel (and array of plates)
     public void draw(Graphics g){
 
         g.setColor(Color.LIGHT_GRAY);
